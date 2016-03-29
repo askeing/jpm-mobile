@@ -5,6 +5,7 @@ var program = require("commander");
 var VERSION = require("../package.json").version;
 var run = require("../lib/run").run;
 var cwd = process.cwd();
+var cmd = require("jpm/lib/cmd");
 
 program
   .version(VERSION)
@@ -24,15 +25,15 @@ program
   .description("Install and run the current addon in Firefox for Mobile.")
   .action(function () {
     var manifest = require(path.join(cwd, "package.json"));
-    run(manifest, makeOptions(program, "run")).then(null, console.error);
+    run(manifest, makeOptions(program, "run"));
   });
 
 program
   .command("test")
   .description("Install, run, and test the current addon in Firefox for Mobile.")
   .action(function () {
-    var manifest = require(path.join(cwd, "package.json"))
-    run(manifest, makeOptions(program, "test")).then(null, console.error);
+    var manifest = require(path.join(cwd, "package.json"));
+    run(manifest, makeOptions(program, "test"));
   });
 
 function makeOptions(program, command) {
